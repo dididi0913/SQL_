@@ -166,10 +166,10 @@ Pokemon - Trainer_Pokemon - Trainer
 ---
 # 2️⃣ 학습 인증란
 
-![sql1](./쿼리 어저고.png)
-![sql2](./클라우드1.png)
-![sql3](1week.md/클라우드2.png)
-![sql4](1week.md/sql쿼리 형태.png)
+![sql1](./클라우드1.png)
+![sql2](./클라우드2.png)
+![sql3](./sql쿼리%20형태.png)
+![sql4](./쿼리%20어저고.png)
 
 <br>
 <br>
