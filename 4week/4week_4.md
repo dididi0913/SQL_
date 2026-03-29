@@ -54,7 +54,21 @@
 * 오류 메시지를 보고 디버깅이라는 과정을 수행할 수 있다. 
 ~~~
 
-<!-- 새롭게 배운 내용을 자유롭게 정리해주세요.-->
+오류: 정확하거나 잘못된 행동
+길잡이 역할 + 문제 진단의 역할
+
+대표적인 오류: 문법 오류
+
+SELECT list must no be empty at[10:1]
+: 밑줄 앞이나 뒤에 오류가 있을 가능성이 높음
+
+오류 디버깅을 위해 1.구글 검색 2.챗지피티 사용 
+
+Number of arguments doest no match for aggregate function of COUNT
+: count() 안의 인자 수 일치 x
+
+오류메시지 해결의 핵심
+: 오류 메시지 번역/해석해서 오류 메시지 검색해서 해결한다.
 
 
 
@@ -66,8 +80,24 @@
 * 데이터 타입을 변환하는 방법을 설명할 수 있다. 
 ~~~
 
-<!-- 새롭게 배운 내용을 자유롭게 정리해주세요.-->
+SELECT 문에서 데이터를 변환시킬 수 있음
+데이터의 타입에 따라 유형이 있음
 
+### 데이터 타입
+숫자, 문자, 시간, 날짜, 부울(Bool) - 참/거짓
+
+데이터 타입이 중요한 이유
+: 보이는 것과 저장된 것의 차이가 존재
+
+### 자료 타입 변경하기
+CAST 함수
+
+SELECT
+    CAST(1 AS STRING)
+
+
+수학 함수는 수학 연산(평균, 표준편차, 코사인 등)이 존재
+나누기를 할 경우 X/Y 대신 SAFE_DIVIDE 함수 사용
 
 
 ## 4-3. 문자열 함수(CONCAT, SPLIT, REPLACE, TRIM, UPPER)
@@ -77,8 +107,30 @@
 * 문자열 함수들의 종류를 이해하고 어떠한 상황에서 사용하는지 설명할 수 있다. 
 ~~~
 
-<!-- 새롭게 배운 내용을 자유롭게 정리해주세요.-->
+문자열 붙이기, 분리하기, 수정하기, 자르기, 대문자 변환
 
+----문자열 붙이기 => CONCAT
+SELECT
+  CONCAT("안녕", "하세요") AS result;
+
+
+----문자열 분리하기=> SPLIT
+SELECT
+  SPLIT("가, 나, 다, 라", ",") AS result;
+
+---특정 단어 수정하기=> REPLACE
+SELECT
+  REPLACE("안녕하세요", "안녕", "실천") AS result;
+----REPLACE(문자열 원본, 찾을 단어, 바꿀 단어)
+
+
+----문자열 자르기 => TRIM
+SELECT 
+  TRIM("안녕하세요", "하세요") AS result;
+
+----영어 소문자를 대문자로 변경=> UPPER
+SELECT
+  UPPER("abc") AS result;
 
 
 ## 4-4. 날짜 및 시간 데이터 이해하기(1) (타임존, UTC, Millisecond, TIMESTAMP/DATETIME)
@@ -90,7 +142,47 @@
 * 시간함수들의 종류와 시간의 차이를 추출하는 방법을 설명할 수 있다. 
 ~~~
 
-<!-- 새롭게 배운 내용을 자유롭게 정리해주세요.-->
+시간-> updated_at, created_at
+
+### 날짜 및 시간 데이터 타입 파악하기: DATE, DATETIME, TIMESTAMP
+
+타임존: GMT. 영국 그리니치 천문대 기준
+UTC: 국제적인 표준 시간
+
+타임존이 존재한다=특정 지역의 표준 시간대
+
+TIMESTAMP: UTC부터 경과한 시간을 나타내는 값, TIME ZONE 정보 있음
+
+
+### 시간데이터 다루기- Millisecond
+
+시간의 단위, 천 분의 1초
+빠른 반응이 필요한 분야에서 사용(초보다 더 정확하게)
+
+microsecond: 밀리세컨즈의 1/1000
+
+millis에서 datetime으로 변환가능
+
+### TIMESTAMP와 DATETIME 비교
+
+TIMESTAMP에는 UTC정보가 있고(한국시간-9시간), DATETIME은 T가 나옴(TIME을 의미)
+
+### DATETIME 함수 - CURRENT_DATETIME
+
+EXTRACT 함수: DATETIME에서 특정 부분만 추출하고 싶은 경우
+
+요일을 추출하고 싶은 경우: EXTRACT(DAYOFWEEK FROM 어쩌고)
+
+DATE와 HOUR만 남기고 싶은 경우=> 시간 자르기
+
+PARSE_DATETIME: 문자열로 저장된 DATETIME을 DATETIME 타입으로 바꾸고 싶은 경우
+
+FORMAT_DATETIME: DATETIME 타입 데이터를 특정 형태의 문자열 데이터로 변환하고 싶은 경우 
+
+LAST_DAY: 마지막 날을 알고 싶은 경우 - 자동으로 월의 마지막 값을 계산해서 특정 연산을 할 경우 
+
+DATETIME_DIFF: 두 DATETIME의 차이를 알고 싶은 경우
+
 
 
 
@@ -112,9 +204,7 @@
 >
 > :  https://school.programmers.co.kr/learn/courses/30/lessons/144853
 
-<!-- 문제를 풀기 위하여 로그인이  필요합니다. -->
-
-<!-- 정답을 맞추게 되면, 정답입니다. 라는 칸이 생성되는데 이 부분을 캡처해서 이 주석을 지우시고 첨부해주시면 됩니다. --> 
+![alt text](image.png)
 
 
 
@@ -136,7 +226,8 @@ WHERE CATEGORY = '인문'
 
 
 ~~~
-여기에 답을 작성해주세요!
+오류 메시지 해석: YEAR의 인자 개수가 일치하지 않는다. 
+설명: YEAR() 함수는 인자 1개만 받게 되있음. 근데 저 SQL문에서 두개를 받고 있기 때문에 오류 발생
 ~~~
 
 
